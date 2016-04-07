@@ -1,0 +1,30 @@
+rate:
+    path:     /
+    defaults: { _controller: "PaycomBundle:Rate:index" }
+
+rate_show:
+    path:     /{id}/show
+    defaults: { _controller: "PaycomBundle:Rate:show" }
+
+rate_new:
+    path:     /new
+    defaults: { _controller: "PaycomBundle:Rate:new" }
+
+rate_create:
+    path:     /create
+    defaults: { _controller: "PaycomBundle:Rate:create" }
+    methods:  POST
+
+rate_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "PaycomBundle:Rate:edit" }
+
+rate_update:
+    path:     /{id}/update
+    defaults: { _controller: "PaycomBundle:Rate:update" }
+    methods:  [POST, PUT]
+
+rate_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "PaycomBundle:Rate:delete" }
+    methods:  [POST, DELETE]

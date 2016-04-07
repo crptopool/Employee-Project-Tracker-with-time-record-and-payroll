@@ -1,0 +1,33 @@
+EdgeWeb\Project\EmployeeBundle\Entity\Permission:
+    type: entity
+    table: permission
+    repositoryClass: EdgeWeb\Project\EmployeeBundle\Repository\PermissionRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        permission:
+            type: string
+            length: 255
+        createdby:
+            type: string
+            length: 255
+            nullable: true
+        updatedby:
+            type: string
+            length: 255
+            nullable: true
+        dateupdated:
+            type: datetime
+            nullable: true
+        datecreated:
+            type: datetime
+            nullable: true
+    oneToMany:
+        #timerecords:
+            #targetEntity: Timerecord
+            #mappedBy: permission
+    lifecycleCallbacks: {  }

@@ -1,0 +1,46 @@
+EdgeWeb\Project\PaycomBundle\Entity\Rate:
+    type: entity
+    table: rate
+    repositoryClass: EdgeWeb\Project\PaycomBundle\Repository\RateRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        monthlyRate:
+            type: float
+            column: monthly_rate
+        hourlyRate:
+            type: float
+            column: hourly_rate
+        createdBy:
+            type: string
+            length: '20'
+            column: created_by
+            nullable: true
+        updatedBy:
+            type: string
+            length: '20'
+            column: updated_by
+            nullable: true
+        dateCreated:
+            type: datetime
+            column: date_created
+            nullable: true
+        dateUpdated:
+            type: datetime
+            column: date_updated
+            nullable: true
+    manyToOne:
+        users:
+            targetEntity: EdgeWeb\Project\UserBundle\Entity\User
+            cascade: {  }
+            mappedBy: null
+            inversedBy: rates
+            joinColumn:
+                name:  user_id
+                referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

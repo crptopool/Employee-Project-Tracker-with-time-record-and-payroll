@@ -1,0 +1,12 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+	<div class="page-header">
+    	<h1>Edit Payroll</h1>
+	</div>
+    {{ form_start(edit_form, {attr: {novalidate: 'novalidate'}} ) }}
+        {{ form_errors(edit_form) }}
+    {{ form_end(edit_form)}}
+{% endblock %}

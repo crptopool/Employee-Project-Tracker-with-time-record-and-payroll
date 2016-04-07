@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}EdgeWebMedia System{% endblock %}</title>
+
+        {% block stylesheets %}
+        {# uncomment the following lines to compile SCSS assets with Assetic
+
+            {% stylesheets filter="scssphp" output="css/app.css"
+                "%kernel.root_dir%/Resources/assets/scss/bootstrap.scss"
+                "%kernel.root_dir%/Resources/assets/scss/font-awesome.scss"
+                "%kernel.root_dir%/Resources/assets/css/*.css"
+                "%kernel.root_dir%/Resources/assets/scss/main.scss"
+            %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        #}
+
+            <link rel="stylesheet" href="{{ asset('bundles/employee/css/app.css') }}">
+            <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css">
+            <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,700,600italic,800,800italic' rel='stylesheet' type='text/css'>
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body id="{% block body_id %}{% endblock %}">
+
+        {% block header %}
+            <header>
+                <div class="navbar navbar-default navbar-static-top" role="navigation">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="{{ path('homepage') }}">
+                                EdgeWebMedia
+                            </a>
+                            <button type="button" class="navbar-toggle"
+                                    data-toggle="collapse"
+                                    data-target=".navbar-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <div id="navbar" class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ path('project') }}">Show All Projects</a></li>
+                                        <li><a href="{{ path('timerecord')}}">View Your Time Records</a></li>
+                                        <li><a href="{{ path('timerecord_new') }}">TimeIn/Out</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin Area<span class="caret"></span></a>
+                                    {% if app.user and is_granted('ROLE_ADMIN') %}
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{{ path('all_user') }}">Show All Users</a></li>
+                                            <li><a href="{{ path('department') }}">Department</a></li>
+                                            <li><a href="{{ path('position') }}">Position</a></li>
+                                            <!--li><a href="{#{ path('permission')}#}">Permission</a></li-->
+                                            <li><a href="{{ path('fos_user_registration_register')}}">Add New User</a></li>
+                                            <li><a href="{{ path('project_new')}}">Add Project</a></li>
+                                        </ul>
+                                    {% endif %}
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports<span class="caret"></span></a>
+                                    {% if app.user and is_granted('ROLE_SUPER_ADMIN') %}
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ path('payroll_new') }}">Create Payroll</a></li>
+                                        <li><a href="{{ path('payroll_show') }}">Recent Payrolls</a></li>
+                                        <li><a href="{{ path('payroll') }}">Show All Payroll</a></li>
+                                        <li><a href="{{ path('rate_new') }}">Add Employee Rates</a></li>
+                                    </ul>
+                                    {% endif %}
+                                </li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{% if app.user %}{{app.user.username}} {% endif %} <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        {% if app.user %}
+                                            <li>
+                                                <a href="{{ path('fos_user_security_logout') }}">
+                                                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                                                 </a>
+                                            </li>
+                                        {% else %}
+                                            <li>
+                                                <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </header>
+        {% endblock %}
+
+        <div class="container body-container">
+            {% block body %}
+                <div class="row">
+                    
+                    {% for label, flashes in app.session.flashbag.all %}
+                        {% for flash in flashes %}
+                            <div id="myAlert" class="alert alert-{{ label }} fade in" data-alert="alert">
+                                {{ flash }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+
+                    <div id="main" class="col-sm-12">
+                        {% block main %}{% endblock %}
+                    </div>
+                </div>
+            {% endblock %}
+        </div>
+
+        {% block footer %}
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <div id="footer-copyright" class="col-md-6">
+                            <p>&copy; {{ 'now'|date('Y') }} - EdgeWebMedia</p>
+                            <p> <a href="https://github.com/ianrussel/Employee-Project-Tracker-with-time-record-and-payroll"><i class="fa fa-github"></i>You can contribute</a></p>
+                        </div>
+                        <div id="footer-resources" class="col-md-6">
+                            <p>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-rss"></i></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        {% endblock %}
+
+        {% block javascripts %}
+        {# uncomment the following lines to combine and minimize JavaScript assets with Assetic
+            {% javascripts filter="?jsqueeze" output="js/app.js"
+                "%kernel.root_dir%/Resources/assets/js/jquery-2.1.4.js"
+                "%kernel.root_dir%/Resources/assets/js/bootstrap-3.3.4.js"
+                "%kernel.root_dir%/Resources/assets/js/highlight.pack.js" %}
+                <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        #}
+
+            <script src="{{ asset('bundles/employee/js/app.js') }}"></script>
+            <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+            <script src="{{ asset('bundles/employee/js/alert.js') }}"></script>
+            <script>
+                $(document).ready(function() {
+                    hljs.initHighlightingOnLoad();
+                });
+            </script>
+        {% endblock %}
+
+    </body>
+</html>

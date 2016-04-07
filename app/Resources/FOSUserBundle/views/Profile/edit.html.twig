@@ -1,0 +1,11 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+
+{% block fos_user_content %}
+{% include "FOSUserBundle:Profile:edit_content.html.twig" %}
+{% endblock fos_user_content %}
+
+{% endblock %}

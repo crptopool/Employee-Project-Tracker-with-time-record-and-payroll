@@ -1,0 +1,30 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    app.form.registration:
+        class: EdgeWeb\Project\UserBundle\Form\RegistrationType
+        tags:
+            - { name: form.type, alias: app_user_registration }
+    
+    app.form.profile:
+        class: EdgeWeb\Project\UserBundle\Form\ProfileFormType
+        tags:
+            - { name: form.type, alias: app_user_profile }
+
+    admin.department:
+        class: EdgeWeb\Project\EmployeeBundle\Admin\DepartmentAdmin
+        arguments: [~, EdgeWeb\Project\EmployeeBundle\Entity\Department, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Department }
+
+    admin.project:
+        class: EdgeWeb\Project\EmployeeBundle\Admin\ProjectAdmin
+        arguments: [~, EdgeWeb\Project\EmployeeBundle\Entity\Project, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Project }

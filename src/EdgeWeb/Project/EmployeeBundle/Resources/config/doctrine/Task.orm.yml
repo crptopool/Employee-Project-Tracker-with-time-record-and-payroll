@@ -1,0 +1,53 @@
+EdgeWeb\Project\EmployeeBundle\Entity\Task:
+    type: entity
+    table: task
+    repositoryClass: EdgeWeb\Project\EmployeeBundle\Repository\TaskRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        description:
+            type: string
+            length: 255
+        start:
+            type: time
+        end:
+            type: time
+        path:
+            type: string
+            nullable: true
+        createdby:
+            type: string
+            length: 255
+            nullable: true
+        updatedby:
+            type: string
+            length: 255
+            nullable: true
+        dateupdated:
+            type: datetime
+            nullable: true
+        datecreated:
+            type: datetime
+            nullable: true
+    manyToOne:
+        project:
+            targetEntity: Project
+            cascade: {  }
+            mappedBy: null
+            inversedBy: tasks
+            joinColumn:
+                name:  project_id
+                referencedColumnName: id
+            orphanRemoval: false
+    oneToMany:
+        comments:
+            targetEntity: Comment
+            mappedBy: task
+    lifecycleCallbacks: {  }

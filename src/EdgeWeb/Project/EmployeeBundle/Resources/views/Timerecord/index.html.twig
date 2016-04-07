@@ -1,0 +1,69 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+ 
+{% block main %}  
+
+    <h3>Time Record lists for this date {{ "now"|date('F jS \\a\\t g:ia')}}</h3>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>In</th>
+                <th>Out</th>
+                <th><i class="fa fa-calendar"></i>Date</th>
+                <th>Hours Work(h/m)</th>
+                <th><i class="fa fa-user"></i>Employee</th>
+                <th>Remark</th>
+                <th>Createdby</th>
+                <th>Updatedby</th>
+                <th>Datecreated</th>
+                <th>Dateupdated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{% if entity.timein %}{{ entity.timein|date('h:i:s a') }}{% endif %}</td>
+                <td>
+                    {% if entity.timeout is empty %}
+                        currently working
+                    {% else %}
+                        {% if entity.timeout %}{{ entity.timeout|date('h:i:s a') }}{% endif %}
+                    {% endif %}
+                </td>
+                <td>{% if entity.workingday %}{{ entity.workingday|date('Y-m-d') }}{% endif %}</td>
+                <!--td>{{ entity.getWorkedHours() }}</td-->
+                <td>{{ entity.getRemark() }}</td>
+                <td>{{ entity.getUsers() }}</td>
+                <td>{{ entity.getOtOrUnderTime()}}</td>
+                <td>{{ entity.createdby }}</td>
+                <td>{{ entity.updatedby }}</td>
+                <td>{% if entity.datecreated %}{{ entity.datecreated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.dateupdated %}{{ entity.dateupdated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                {% if entity.isOwner(app.user) %}
+                <div class="item-actions">
+                    <a href="{{ path('timerecord_show', { 'id': entity.id }) }}" class="btn btn-sm btn-default">Show</a>
+                   {% if entity.dateupdated >  'now' | date('F d, Y h:i A')  %}
+                        <small class="btn btn-sm btn-warning"><i class="fa fa-home"></i>Away</small>
+                    {% else %}
+                        <a href="{{ path('timerecord_edit', { 'id': entity.id }) }}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>Timeout</a>
+                    {% endif %}
+                </div>
+                {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!--ul>
+        <li>
+            <a href="{#{ path('timerecord_new') }#}">
+                Create a new entry
+            </a>
+        </li>
+    </ul-->
+{% endblock %}

@@ -1,0 +1,38 @@
+comment:
+    path:     /
+    defaults: { _controller: "EmployeeBundle:Comment:index" }
+
+comment_show:
+    path:     /{id}/show
+    defaults: { _controller: "EmployeeBundle:Comment:show" }
+
+comment_new:
+    path:     /new
+    defaults: { _controller: "EmployeeBundle:Comment:new" }
+
+#comment_create:
+    #path:     /create
+    #defaults: { _controller: "EmployeeBundle:Comment:create" }
+    #methods:  POST
+
+comment_create:
+    path:     /{task_id}
+    defaults: { _controller: "EmployeeBundle:Comment:create" }
+    requirements:
+        methods:  POST
+        task_id: \d+
+    
+
+comment_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "EmployeeBundle:Comment:edit" }
+
+comment_update:
+    path:     /{id}/update
+    defaults: { _controller: "EmployeeBundle:Comment:update" }
+    methods:  [POST, PUT]
+
+comment_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "EmployeeBundle:Comment:delete" }
+    methods:  [POST, DELETE]

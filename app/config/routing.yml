@@ -1,0 +1,61 @@
+paycom:
+    resource: "@PaycomBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+user:
+    resource: "@UserBundle/Resources/config/routing/user.yml"
+    prefix:   /edgewebmediausers
+
+department:
+    resource: "@EmployeeBundle/Resources/config/routing/department.yml"
+    prefix:   /departments
+
+position:
+    resource: "@EmployeeBundle/Resources/config/routing/position.yml"
+    prefix:   /positions
+
+timerecord:
+    resource: "@EmployeeBundle/Resources/config/routing/timerecord.yml"
+    prefix:  /time-records
+
+permission:
+    resource: "@EmployeeBundle/Resources/config/routing/permission.yml"    
+    prefix: /permissions
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+homepage:
+    path:     /
+    #defaults: { _controller: EmployeeBundle:Default:homepage }
+    defaults: { _controller: EmployeeBundle:Timerecord:new }
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+easy_admin_bundle:
+    resource: "@EasyAdminBundle/Controller/"
+    type:     annotation
+    #prefix:   /easyadmin
+    prefix:   /edgewebmedia-super-admin
+
+task:
+    resource: "@EmployeeBundle/Resources/config/routing/task.yml"
+    prefix:  /tasks
+
+comment:
+    resource: "@EmployeeBundle/Resources/config/routing/comment.yml"
+    prefix:  /comments
+
+project:
+    resource: "@EmployeeBundle/Resources/config/routing/project.yml"
+    prefix:  /projects
+
+admin_area:
+    resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
+    prefix: /admin
+
+_sonata_admin:
+    resource: .
+    type: sonata_admin
+    prefix: /admin

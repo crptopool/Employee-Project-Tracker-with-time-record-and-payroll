@@ -1,0 +1,25 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+    <h3>Permission</h3>
+    <table class="table table-striped table-hover">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Permission</th>
+                <td>{{ entity.permission }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('permission') }}"><i class="fa fa-arrow-left"></i>Back</a>
+    <a href="{{ path('permission_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i>Edit</a>
+     
+    {#{ form(delete_form) }#}
+    
+{% endblock %}

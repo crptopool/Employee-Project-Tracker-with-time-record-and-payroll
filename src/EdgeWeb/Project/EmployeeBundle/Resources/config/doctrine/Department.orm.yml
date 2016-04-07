@@ -1,0 +1,36 @@
+EdgeWeb\Project\EmployeeBundle\Entity\Department:
+    type: entity
+    table: department
+    repositoryClass: EdgeWeb\Project\EmployeeBundle\Repository\DepartmentRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        department:
+            type: string
+            length: 255
+        description:
+            type: string
+            length: 255
+        createdby:
+            type: string
+            length: 255
+            nullable: true
+        updatedby:
+            type: string
+            length: 255
+            nullable: true
+        dateupdated:
+            type: datetime
+            nullable: true
+        datecreated:
+            type: datetime
+            nulable: true
+    oneToMany:
+        positions:
+            targetEntity: Position
+            mappedBy: department
+    lifecycleCallbacks: {  }

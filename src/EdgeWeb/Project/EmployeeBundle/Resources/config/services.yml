@@ -1,0 +1,37 @@
+services:
+#    employee.example:
+#        class: EdgeWeb\Project\EmployeeBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
+    employee.twig.number_work_extension:
+        class: EdgeWeb\Project\EmployeeBundle\Twig\WorkHourExtension
+        tags:
+            - { name: twig.extension } 
+        arguments: []
+
+    employee.alreadytimedin_extension:
+        class: EdgeWeb\Project\EmployeeBundle\Twig\AlreadyTimedInExtension
+        tags:
+            - { name: twig.extension }
+        arguments:
+            em: "@doctrine.orm.entity_manager" 
+    
+    employee.projectname_extension:
+        class: EdgeWeb\Project\EmployeeBundle\Twig\ProjectNameExtension
+        tags:
+            - { name: twig.extension }
+        arguments:
+            em: "@doctrine.orm.entity_manager" 
+    
+    employee.currentidproject_extension:
+        class: EdgeWeb\Project\EmployeeBundle\Twig\CurrentIdProjectExtension
+        tags:
+            - { name: twig.extension }
+        arguments:
+            em: "@doctrine.orm.entity_manager"  
+
+    employee.projecttask_extension:
+        class: EdgeWeb\Project\EmployeeBundle\Twig\ProjectRelatedTaskExtension
+        tags:
+            - { name: twig.extension }
+        arguments:
+            em: "@doctrine.orm.entity_manager"       

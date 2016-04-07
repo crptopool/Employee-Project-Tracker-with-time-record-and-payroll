@@ -1,0 +1,98 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+    <h3>Task</h3>
+    <table class="table table-hover table-striped">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Attachment</th>
+                <th>Hours</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Date</th>
+                <!--th>Dateupdated</th>
+                <th>Actions</th-->
+            </tr>
+            <tr>
+                <td>{{ task.id }}</td>
+                <td>{{ task.name }}</td>
+                <td>{{ task.description }}</td>
+                <td>
+                    {% if task.start %}
+                        {{ task.start|date('h:i:s a') }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if task.end %}
+                        {{ task.end|date('h:i:s a') }}
+                    {% endif %}
+                </td>
+                <td><a href="#"><img src="/edgewebworking/web/uploads/documents/thumbnail-default.jpg" id="responsive"></a></td> 
+
+                <td>{{ task.getWorkedHours() }}</td>
+                <td>{{ task.createdby }}</td>
+                <td>{{ task.updatedby }}</td>
+                <td>
+                    {% if task.datecreated %}
+                        {{ task.datecreated|date('Y-m-d h:i:s a') }}
+                    {% endif %}
+                </td>
+                <!--td>
+                    {#% if task.dateupdated %}
+                        {{ task.dateupdated|date('Y-m-d h:i:s a') }}
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="item-actions">
+                    {% if task.isOwner(app.user) %}
+                        <a href="{{ path('task_edit', { 'id': task.id }) }}"><i class="fa fa-edit"></i>Edit</a>
+                    {% endif %#}
+                    </div>
+                </td-->
+            </tr>
+        </tbody>
+    </table>
+     {#{ form(delete_form) }#}
+    <h3>Comments</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th><i class="fa fa-comment"></i>Latest Comments</th>
+                <th></th>
+                <th></th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {#% for comment in task.comments %#}  
+            {% for comment in comments %}  
+            <tr>
+                <td>{{ comment.createdby }}</td>
+                <td>Commented</td>
+                <td>On</td>
+                <td>{{ comment.getDatecreated()|date('F jS \\a\\t g:ia') }}</td>
+                <td>
+                    <div class="item-actions">
+                      
+                        <a href="{{ path('comment_show', { 'id': comment.id }) }}"><i class="fa fa-eye"></i>Show</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table> 
+    {% if task.project.getStatus == 'Finished' or task.project.getStatus == 'Pending' %}
+        <p class="alert alert-info">You cant add comment to a task related to a {{ task.project.getStatus() }} project.Contact your admin</p>
+    {% else %}
+        <button class="btn btn-sm btn-default" onclick="$('#target').toggle();"><i class="fa fa-plus"></i>Add Comment</button>
+            {{ render(controller('EmployeeBundle:Comment:new',{ 'task_id': task.id })) }}
+    {% endif %}
+{% endblock %}

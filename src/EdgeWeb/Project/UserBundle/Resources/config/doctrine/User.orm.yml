@@ -1,0 +1,52 @@
+EdgeWeb\Project\UserBundle\Entity\User:
+    type: entity
+    table: fos_user
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    oneToMany:
+        timerecords:
+            targetEntity: EdgeWeb\Project\EmployeeBundle\Entity\Timerecord
+            mappedBy: users
+        payrolls:
+            targetEntity: EdgeWeb\Project\PaycomBundle\Entity\Payroll
+            mappedBy: users
+
+    manyToOne:
+        position:
+            targetEntity: EdgeWeb\Project\EmployeeBundle\Entity\Position
+            nullable: true
+            cascade: {  }
+            mappedBy: null
+            inversedBy: users
+            joinColumn:
+                name:  position_id
+                referencedColumnName: id
+            orphanRemoval: false
+        #project:
+            #targetEntity: EdgeWeb\Project\EmployeeBundle\Entity\Project
+            #nullable: true
+            #cascade: {  }
+            #mappedBy: null
+            #inversedBy: users
+            #joinColumn:
+                #name:  project_id
+                #referencedColumnName: id
+            #orphanRemoval: false
+
+    #manyToMany:
+        #projects:
+            #targetEntity: EdgeWeb\Project\EmployeeBundle\Entity\Project
+            #inversedBy: users
+            #joinTable:
+            #name: users_projects
+            #joinColumns:
+                #user_id:
+                #referencedColumnName: id
+            #inverseJoinColumns:
+                #project_id:
+                #referencedColumnName: id
+    lifecycleCallbacks: {  }

@@ -1,0 +1,16 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'error' %}
+
+{% block main %}
+    <h1 class="text-danger">Error 404</h1>
+
+    <p class="lead">
+        We couldn't find the page you requested.
+    </p>
+    <p>
+        Check out any misspelling in the URL or
+        <a href="{{ path('project') }}">go back to the homepage</a>.
+    </p>
+{% endblock %}
+

@@ -1,0 +1,36 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+    <h1>Employee Rates</h1>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Employee</th>
+                <th>Monthly Rate</th>
+                <th>Hourly Rate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('rate_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.users }}</td>
+                <td>{{ entity.monthlyRate }}</td>
+                <td>{{ entity.hourlyRate }}</td>
+                <td>
+                    <div class="item-actions">
+                       <a href="{{ path('rate_show', { 'id': entity.id }) }}" class="btn btn-sm btn-danger"><i class="fa fa-eye"></i>Show</a>
+                        <a href="{{ path('rate_edit', { id: entity.id }) }}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>Update</a>
+                    </div>
+                </td>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}

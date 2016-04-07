@@ -1,0 +1,13 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+    <h1>Edit This Department</h1>
+
+    {{ form(edit_form) }}
+
+    <a href="{{ path('department') }}"><i class="fa fa-arrow-left"></i>Back</a>
+	    
+	    {#{ form(delete_form) }#}
+{% endblock %}

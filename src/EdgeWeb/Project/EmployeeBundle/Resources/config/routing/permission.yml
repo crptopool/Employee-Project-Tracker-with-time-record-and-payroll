@@ -1,0 +1,30 @@
+permission:
+    path:     /
+    defaults: { _controller: "EmployeeBundle:Permission:index" }
+
+permission_show:
+    path:     /{id}/show
+    defaults: { _controller: "EmployeeBundle:Permission:show" }
+
+permission_new:
+    path:     /new
+    defaults: { _controller: "EmployeeBundle:Permission:new" }
+
+permission_create:
+    path:     /create
+    defaults: { _controller: "EmployeeBundle:Permission:create" }
+    methods:  POST
+
+permission_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "EmployeeBundle:Permission:edit" }
+
+permission_update:
+    path:     /{id}/update
+    defaults: { _controller: "EmployeeBundle:Permission:update" }
+    methods:  [POST, PUT]
+
+permission_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "EmployeeBundle:Permission:delete" }
+    methods:  [POST, DELETE]

@@ -1,0 +1,6 @@
+<form action="{{ path('comment_create', { 'task_id' : comment.task.id } ) }}" novalidate method="post" {{ form_enctype(form) }} class="form-horizontal">
+    {{ form_widget(form) }}
+    <p>
+        <input type="submit" value="Submit" class="btn btn-lg btn-success">
+    </p>
+</form>

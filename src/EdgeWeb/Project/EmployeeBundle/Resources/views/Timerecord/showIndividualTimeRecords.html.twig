@@ -1,0 +1,59 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+    
+    <h3>Timerecord list</h3>
+    <table class="table table-condensed table-hover">
+        <thead>
+            <tr>
+                <th>In</th>
+                <th>Out</th>
+                <th>Date</th>
+                <th>Hours Work</th>
+                <th>Remark</th>
+                <th>Createdby</th>
+                <th>Updatedby</th>
+                <th>Datecreated</th>
+                <th>Dateupdated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            {% if entity.isOwner(app.user) %}
+            <tr>
+                <td>{% if entity.timein %}{{ entity.timein|date('h:i:s a') }}{% endif %}</td>
+                <td>{% if entity.timeout %}{{ entity.timeout|date('h:i:s a') }}{% endif %}</td>
+                <td>{% if entity.workingday %}{{ entity.workingday|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ entity.getWorkedHours }}</td>
+                <td>{{ entity.getRemark() }}</td>
+                <td>{{ entity.createdby }}</td>
+                <td>{{ entity.updatedby }}</td>
+                <td>{% if entity.datecreated %}{{ entity.datecreated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.dateupdated %}{{ entity.dateupdated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('timerecord_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('timerecord_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('timerecord_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

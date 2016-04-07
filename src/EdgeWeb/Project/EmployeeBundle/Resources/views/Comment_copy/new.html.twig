@@ -1,0 +1,18 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+
+    <h3>Comment</h3>
+
+    {{ form(form) }}
+
+    <ul class="record_actions">
+	    <li>
+	        <a href="{{ path('comment') }}">
+	            Comment lists
+	        </a>
+	    </li>
+	</ul>
+{% endblock %}

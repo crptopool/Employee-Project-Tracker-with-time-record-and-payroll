@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}EdgeWebMedia{% endblock %}</title>
+        {% block stylesheets %}
+            <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"-->
+            <!--link rel="stylesheet" type="text/css" href="{#{ asset('bundles/employee/css/homepage/bootstrap-3.3.5/css/bootstrap.css')}#}"-->
+            <link rel="stylesheet" href="{{ asset('bundles/employee/css/app.css') }}">
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">EdgeWebMedia</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Todo Ajax Serach Form to --Calculate and Print Salaries --</a></li>
+                                <li><a href="">Todo -- View All Tasks for each Projects</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Employee Records<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Show All Users</a></li>
+                                <li><a href="{{ path('timerecord_individual')}}">View Your Time Records</a></li>
+                                <li><a href="{{ path('timerecord_new') }}">Add Employee New Record</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin Area<span class="caret"></span></a>
+                            {#% if app.user and is_granted('ROLE_ADMIN') %#}
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ path('project') }}">Show All Projects</a></li>
+                                    <li><a href="{{ path('department_new') }}">Department</a></li>
+                                    <li><a href="{{ path('position_new') }}">Position</a></li>
+                                    <li><a href="{{ path('permission_new')}}">Permission</a></li>
+                                    <li><a href="{{ path('fos_user_registration_register')}}">Add New User</a></li>
+                                    <li><a href="{{ path('project_new')}}">Add Project</a></li>
+                                    <li><a href="{{ path('task_new') }}">Add Task</a></li>
+                                    <li><a href="{{ path('comment')}}">Add Comment</a></li>
+                                </ul>
+                            {#% endif %#}
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{% if app.user %}{{app.user.username}} {% endif %} <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                {% if app.user %}
+                                    <li>
+                                        <a href="{{ path('fos_user_security_logout') }}">
+                                            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                                         </a>
+                                    </li>
+                                {% else %}
+                                    <li>
+                                        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div class="container body-container">
+            {% block body %}
+                <div class="row">
+                    <div id="main" class="col-sm-9">
+                        {% block main %}{% endblock %}
+                    </div>
+
+                    <div id="sidebar" class="col-sm-3">
+                        {% block sidebar %}
+                            <div class="section about">
+                                <div class="well well-lg">
+                                    <p>
+                                        This is a <strong>demo application</strong> built in the
+                                        Symfony Framework to illustrate the recommended way of
+                                        developing Symfony applications.
+                                    </p>
+                                    <p>
+                                        For more information, check out the
+                                        <a href="http://symfony.com/doc">Symfony Documentation</a>.
+                                    </p>
+                                </div>
+                            </div>
+                        {% endblock %}
+                    </div>
+                </div>
+            {% endblock %}
+        </div>
+        
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        {% block javascripts %}
+            <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script-->
+            <!--script src="{#{ asset('bundles/employee/js/homepage/jquery/js/jquery-1.11.3.min.js') }#}"></script-->
+            <!--script src="{#{ asset('bundles/employee/js/homepage/bootstrap-3.3.5/js/bootstrap.js') }#}"></script-->
+            <script src="{{ asset('bundles/employees/js/app.js') }}"></script>
+            <script>
+                $(document).ready(function() {
+                    hljs.initHighlightingOnLoad();
+                });
+            </script>
+        {% endblock %}
+    </body>
+</html>
+

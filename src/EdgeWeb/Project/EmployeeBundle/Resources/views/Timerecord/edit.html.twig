@@ -1,0 +1,12 @@
+{% extends '::base.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+ 
+{% block main %}  
+	<p class="btn btn-sm btn-primary"><i class="fa fa-home"></i>Ready To Go Home?</p>
+    {#{ form(edit_form) }#}
+	{{ form_start(edit_form, {attr: {novalidate: 'novalidate'}} ) }}
+   	{{ form(edit_form) }}
+    {{ form_end(edit_form)}}
+
+{% endblock %}

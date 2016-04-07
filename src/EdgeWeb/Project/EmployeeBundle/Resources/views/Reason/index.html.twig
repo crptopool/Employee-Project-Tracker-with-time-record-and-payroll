@@ -1,0 +1,49 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Reason list</h1>
+    <div class="table-responsive">
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Reason</th>
+                    <th>Createdby</th>
+                    <th>Updatedby</th>
+                    <th>Datecreated</th>
+                    <th>Dateupdated</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td><a href="{{ path('reason_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>{{ entity.reason }}</td>
+                    <td>{{ entity.createdby }}</td>
+                    <td>{{ entity.updatedby }}</td>
+                    <td>{% if entity.datecreated %}{{ entity.datecreated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>{% if entity.dateupdated %}{{ entity.dateupdated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('reason_show', { 'id': entity.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('reason_edit', { 'id': entity.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <ul>
+            <li>
+                <a href="{{ path('reason_new') }}">
+                    Create a new entry
+                </a>
+            </li>
+        </ul>
+    </div>
+    {% endblock %}

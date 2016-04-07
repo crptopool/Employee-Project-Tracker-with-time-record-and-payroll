@@ -1,0 +1,87 @@
+EdgeWeb\Project\PaycomBundle\Entity\Payroll:
+    type: entity
+    table: payroll
+    repositoryClass: EdgeWeb\Project\PaycomBundle\Repository\PayrollRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        hours:
+            type: string
+            length: '20'
+            nullable: true
+        days:
+            type: integer
+            nullable: true
+        amount:
+            type: float
+            nullable: true
+        date:
+            type: date
+            nullable: true
+        dateFrom:
+            type: date
+            column: date_from
+            nullable: true
+        dateTo:
+            type: date
+            column: date_to
+            nullable: true
+        overtime:
+            type: string
+            length: '20'
+            nullable: true
+        createdBy:
+            type: string
+            length: '20'
+            column: created_by
+            nullable: true
+        updatedBy:
+            type: string
+            length: '20'
+            column: updated_by
+            nullable: true
+        createdDate:
+            type: datetime
+            column: created_date
+            nullable: true
+        updatedDate:
+            type: datetime
+            column: updated_date
+            nullable: true
+        status:
+            type: string
+            length: "20"
+            nullable: true
+        rate:
+            type: float
+        holiday_pay:
+            type: float
+            nullable: true
+        incentives:
+            type: float
+            nullable: true
+        deductions:
+            type: float
+            nullable: true
+        deduction_desc:
+            type: string
+            nullable: true
+    #oneToMany:
+        #users:
+            #targetEntity: EdgeWeb\Project\UserBundle\Entity\User
+            #mappedBy: payroll
+    manyToOne:
+        users:
+            targetEntity: EdgeWeb\Project\UserBundle\Entity\User
+            cascade: {  }
+            mappedBy: null
+            inversedBy: payrolls
+            joinColumn:
+                name:  user_id
+                referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

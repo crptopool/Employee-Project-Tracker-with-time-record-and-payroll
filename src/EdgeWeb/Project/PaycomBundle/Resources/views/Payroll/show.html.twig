@@ -1,0 +1,133 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+    {% if pending_payrolls|length > 0 %}
+        <h2>Payroll For {{ date_from|date('Y-m-d') }} To {{ date_to|date('Y-m-d') }}</h2>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered table-striped"> 
+                <thead>
+                    <tr>
+                        <th>Employee</th>
+                        <th>Date</th>
+                        <th>Hourly Rate</th>
+                        <th>Hours</th>
+                        <th>Days</th>
+                        <th>Amount</th>
+                        <th>Overtime</th>
+                        <th>Holiday Pay</th>
+                        <th>Holiday Pay</th>  
+                        <th>Deductions</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </tbody>
+                <tbody>
+                    {% for entity in pending_payrolls %}
+                    <tr>
+                        <td>{{ entity.users }}</td>
+                        <td>{{ entity.dateFrom|date('Y-m-d') }} - {{ entity.dateTo|date('Y-m-d') }}</td>
+                        <td>{{ entity.rate }}</td>
+                        <td>{{ entity.hours }}</td>
+                        <td>{{ entity.days }}</td>
+                        <td>{{ entity.amount }}</td>
+                        <td>{{ entity.overtime }}</td>
+                        {% if entity.getHolidayPay() > 0 %}
+                            <td>{{ entity.getHolidayPay() }}</td>
+                        {% else %}
+                            <td>0</td>
+                        {% endif %}
+                        {% if entity.getIncentives() > 0 %}
+                            <td>{{ entity.getIncentives() }}</td>
+                        {% else %}
+                            <td>0</td>
+                        {% endif %}
+                        {% if entity.getDeductions() > 0 %}
+                            <td>{{ entity.getDeductions() }}<span>{{ entity.getDeductionDesc}}</span></td>
+                        {% else %}
+                            <td>0</td>
+                        {% endif %}
+                        <td>{{ entity.getStatus() }}</td>
+                        <td> <a href="{{ path('payroll_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i>edit</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-warning">No Pending Payrolls</div>
+    {% endif %}
+
+    {% if paid_payrolls|length > 0 %}
+        <h2>Paid Payroll</h2>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered table-striped"> 
+                <thead>
+                    <tr>
+                        <th>Employee</th>
+                        <th>Date</th>
+                        <th>Hourly Rate</th>
+                        <th>Hours</th>
+                        <th>Days</th>
+                        <th>Amount</th>
+                        <th>Overtime</th>
+                        <th>Holiday Pay</th>
+                        <th>Holiday Pay</th>  
+                        <th>Deductions</th>
+                        <th>Status</th>
+                    </tr>
+                </tbody>
+                <tbody>
+                    {% for entity in paid_payrolls %}
+                    <tr>
+                        <td>{{ entity.users }}</td>
+                        <td>{{ entity.dateFrom|date('Y-m-d')}} - {{ entity.dateTo|date('Y-m-d') }}</td>
+                        <td>{{ entity.rate|number_format }}</td>
+                        <td>{{ entity.hours }}</td>
+                        <td>{{ entity.days }}</td>
+                        <td>{{ entity.amount|number_format}}</td>
+                        <td>{{ entity.overtime }}</td>
+                        {% if entity.getHolidayPay() > 0 %}
+                            <td>{{ entity.getHolidayPay() }}</td>
+                        {% else %}
+                            <td>0</td>
+                        {% endif %}
+                        {% if entity.getIncentives() > 0 %}
+                            <td>{{ entity.getIncentives() }}</td>
+                        {% else %}
+                            <td>0</td>
+                        {% endif %}
+                        {% if entity.getDeductions() > 0 %}
+                            <td>{{ entity.getDeductions() }}<span>{{ entity.getDeductionDesc}}</span></td>
+                        {% else %}
+                            <td>0</td>
+                        {% endif %}
+                        <td>
+                            <div class="status_pending">
+                                {{ entity.getStatus() }}
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-warning">No Paid Payrolls</div>
+    {% endif %}
+        <!--ul class="record_actions">
+            <li>
+                <a href="{#{ path('payroll') }}">
+                    Back to the list
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('payroll_edit', { 'id': entity.id }) }}">
+                    Edit
+                </a>
+            </li>
+            <li>{{ form(delete_form) }#}</li>
+        </ul-->
+{% endblock %}
+

@@ -1,0 +1,61 @@
+{#% extends '::base.html.twig' %#}
+{% extends 'users/layout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+       img#img-responsive{
+            height: 225px;
+            width: 225px;
+            /*vertical-align: middle;*/
+            display: table-cell;
+           
+       }
+       img#img-responsive1{
+            height: 208px;
+            width: 208px;
+            margin-left: 9px;
+            /*vertical-align: middle;*/
+            display: table-cell;;
+           
+       }
+       .picture{
+            text-align:center;
+            width: 225px;
+            display: inline-block;
+       }
+       .picture1 {
+            width:208px;
+            text-align:center;
+            display: inline-block;
+       }
+
+    </style>
+{% endblock %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+    
+    <h1>Projects</h1>
+    {% if entities|length > 0 %}
+        {% for project in entities %}
+            {% if project.path is not null %}
+                <div class="picture1">
+                    <img src="http://localhost:81/edgewebworking/web/uploads/documents/{{ project.path }}" id="img-responsive1">
+                    <a href="{{ path('project_show', { 'id': project.id }) }}" class=""><i class="fa fa-plus"></i><span class="span_pics">{{ project.name }}</span></a>
+                </div>
+            {% else %}
+                <div class="picture">
+                    <img src="http://localhost:81/edgewebworking/web/uploads/documents/default-project.jpg" id="img-responsive">
+                    <a href="{{ path('project_show', { 'id': project.id }) }}" class=""><i class="fa fa-plus"></i><span class="span_pics">{{ project.name }}</span></a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-warning">
+            <h3>No Projects Created, Ask The Administrator</h3>
+            <img src="http://localhost:81/edgewebworking/web/uploads/documents/under_construction_animated.gif">
+        </div>
+    {% endif %}
+   
+{% endblock %}

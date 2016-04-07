@@ -1,0 +1,40 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+<h4>{{ username }} Has Total Tasks: {{ transactions.getTotalItemCount | number_format }} as of {{ 'now' | date('F d, Y h:i A') }}</h4>
+{% if transactions|length > 0 %}
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Project Name</th>
+				<th>Task Name</th>
+				<th>Total Hours</th>
+				<th>Date</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for transaction in transactions %}
+			<tr>
+				<td>{{ transaction.project }}</td>
+				<td>{{ transaction.name }}</td>
+				<td>{{ transaction.getWorkedHours() }}</td>
+				<td>
+					{% if transaction.datecreated %}
+						{{ transaction.datecreated|date('Y-m-d h:i:s a') }}
+					{% endif %}
+				</td>
+			</tr>
+			{% endfor %}
+		
+		</tbody>
+	</table>
+{% else %}
+	<p class="alert alert-warning">{{ username }} Has No Task created!</p>
+{% endif %}
+{# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(transactions) }}
+    </div>
+{% endblock %}

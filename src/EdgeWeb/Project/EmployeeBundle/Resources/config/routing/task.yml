@@ -1,0 +1,37 @@
+task:
+    path:     /
+    defaults: { _controller: "EmployeeBundle:Task:index" }
+
+task_show:
+    path:     /{id}/show
+    defaults: { _controller: "EmployeeBundle:Task:show" }
+
+task_new:
+    path:     /new
+    defaults: { _controller: "EmployeeBundle:Task:new" }
+
+#task_create:
+    #path:     /create
+    #defaults: { _controller: "EmployeeBundle:Task:create" }
+    #methods:  POST
+
+task_create:
+    path:     /{project_id}
+    defaults: { _controller: "EmployeeBundle:Task:create" }
+    requirements:
+        methods:  POST
+        project_id: \d+
+
+task_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "EmployeeBundle:Task:edit" }
+
+task_update:
+    path:     /{id}/update
+    defaults: { _controller: "EmployeeBundle:Task:update" }
+    methods:  [POST, PUT]
+
+task_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "EmployeeBundle:Task:delete" }
+    methods:  [POST, DELETE]

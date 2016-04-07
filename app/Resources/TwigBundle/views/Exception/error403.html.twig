@@ -1,0 +1,16 @@
+{% extends 'users/layout.html.twig' %}
+
+
+{% block body_id 'error' %}
+
+{% block main %}
+    <h1 class="text-danger"><i class="fa fa-unlock-alt"></i> Error 403</h1>
+
+    <p class="lead">
+        You don't have permission to access to this resource.
+    </p>
+    <p>
+        Ask your manager or system administrator to grant you
+        access to this resource.
+    </p>
+{% endblock %}

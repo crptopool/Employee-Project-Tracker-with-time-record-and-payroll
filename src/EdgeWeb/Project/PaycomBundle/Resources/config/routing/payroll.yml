@@ -1,0 +1,39 @@
+payroll:
+    path:     /
+    defaults: { _controller: "PaycomBundle:Payroll:index" }
+
+#payroll_show:
+    #path:     /{id}/show
+    #defaults: { _controller: "PaycomBundle:Payroll:show" }
+
+payroll_show:
+    path:     /recent-payrolls
+    defaults: { _controller: "PaycomBundle:Payroll:show" }
+
+payroll_new:
+    path:     /new
+    defaults: { _controller: "PaycomBundle:Payroll:new" }
+
+payroll_create:
+    path:     /create
+    defaults: { _controller: "PaycomBundle:Payroll:create" }
+    methods:  POST
+
+payroll_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "PaycomBundle:Payroll:edit" }
+
+payroll_update:
+    path:     /{id}/update
+    defaults: { _controller: "PaycomBundle:Payroll:update" }
+    methods:  [POST, PUT]
+
+payroll_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "PaycomBundle:Payroll:delete" }
+    methods:  [POST, DELETE]
+
+update_all_pending:
+    path:   /update-all-pending-payrolls
+    defaults: { _controller: "PaycomBundle:Payroll:updatePendingPayroll" }
+    methods: POST

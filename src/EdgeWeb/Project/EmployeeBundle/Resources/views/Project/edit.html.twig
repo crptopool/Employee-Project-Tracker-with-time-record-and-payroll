@@ -1,0 +1,14 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+    <h3>Edit This Project</h3>
+
+    {{ form(edit_form,{attr: {novalidate: 'novalidate'}}) }}
+
+    <a href="{{ path('project') }}"><i class="fa fa-arrow-left"></i>Back</a>
+   
+    {#{ form(delete_form) }#}
+
+{% endblock %}

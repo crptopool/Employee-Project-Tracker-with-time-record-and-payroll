@@ -1,0 +1,39 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+    <a href="{{ path('permission_new') }}" class="btn btn-lg btn-default"><i class="fa fa-plus"></i>Add New Permission</a>
+    <h3>Permission list</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Permission</th>
+                <th>Created By</th>
+                <th>Updated By</th>
+                <th>Date Created</th>
+                <th>Date Updated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('permission_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.permission }}</td>
+                <td>{{ entity.createdby }}</td>
+                <td>{{ entity.updatedby }}</td>
+                <td>{% if entity.datecreated %}{{ entity.datecreated|date('Y-m-d H:i:s A') }}{% endif %}</td>
+                <td>{% if entity.dateupdated %}{{ entity.dateupdated|date('Y-m-d H:i:s A') }}{% endif %}</td>
+                <td>
+                    <div class="item-actions">
+                        <a href="{{ path('permission_show', { 'id': entity.id})}}" class="btn btn-sm btn-danger"><i class="fa fa-eye"></i>Show</a>
+                        <a href="{{ path('permission_edit', { 'id': entity.id})}}" class="btn btn-sm btn-default"><i class="fa fa-edit"></i>Edit</a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

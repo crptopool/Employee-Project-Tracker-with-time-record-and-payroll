@@ -1,0 +1,102 @@
+<?php
+
+namespace EdgeWeb\Project\UserBundle\Entity;
+
+use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * User
+ */
+class User extends BaseUser
+{
+    /**
+     * @var integer
+     */
+   // private $id;
+    protected $id;
+
+   /* public function __construct()
+    {
+        parent::__construct();
+        //your own logic here
+    }*/
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $timerecords;
+
+    /**
+     * @var \EdgeWeb\Project\EmployeeBundle\Entity\Position
+     */
+    private $position;
+
+
+    /**
+     * Add timerecord
+     *
+     * @param \EdgeWeb\Project\EmployeeBundle\Entity\Timerecord $timerecord
+     *
+     * @return User
+     */
+    public function addTimerecord(\EdgeWeb\Project\EmployeeBundle\Entity\Timerecord $timerecord)
+    {
+        $this->timerecords[] = $timerecord;
+
+        return $this;
+    }
+
+    /**
+     * Remove timerecord
+     *
+     * @param \EdgeWeb\Project\EmployeeBundle\Entity\Timerecord $timerecord
+     */
+    public function removeTimerecord(\EdgeWeb\Project\EmployeeBundle\Entity\Timerecord $timerecord)
+    {
+        $this->timerecords->removeElement($timerecord);
+    }
+
+    /**
+     * Get timerecords
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTimerecords()
+    {
+        return $this->timerecords;
+    }
+
+    /**
+     * Set position
+     *
+     * @param \EdgeWeb\Project\EmployeeBundle\Entity\Position $position
+     *
+     * @return User
+     */
+    public function setPosition(\EdgeWeb\Project\EmployeeBundle\Entity\Position $position = null)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return \EdgeWeb\Project\EmployeeBundle\Entity\Position
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+}

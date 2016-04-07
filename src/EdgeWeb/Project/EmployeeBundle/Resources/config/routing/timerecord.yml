@@ -1,0 +1,34 @@
+timerecord:
+    path:     /
+    defaults: { _controller: "EmployeeBundle:Timerecord:index" }
+
+timerecord_show:
+    path:     /{id}/show
+    defaults: { _controller: "EmployeeBundle:Timerecord:show" }
+
+timerecord_new:
+    path:     /new
+    defaults: { _controller: "EmployeeBundle:Timerecord:new" }
+
+timerecord_create:
+    path:     /create
+    defaults: { _controller: "EmployeeBundle:Timerecord:create" }
+    methods:  POST
+
+timerecord_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "EmployeeBundle:Timerecord:edit" }
+
+timerecord_update:
+    path:     /{id}/update
+    defaults: { _controller: "EmployeeBundle:Timerecord:update" }
+    methods:  [POST, PUT]
+
+timerecord_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "EmployeeBundle:Timerecord:delete" }
+    methods:  [POST, DELETE]
+
+timerecord_individual:
+    path:  /individual-timerecords
+    defaults: { _controller: "EmployeeBundle:Timerecord:showIndividualTimeRecords" }

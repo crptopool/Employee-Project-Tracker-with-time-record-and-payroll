@@ -1,0 +1,39 @@
+EdgeWeb\Project\EmployeeBundle\Entity\Comment:
+    type: entity
+    table: comment
+    repositoryClass: EdgeWeb\Project\EmployeeBundle\Repository\CommentRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        comment:
+            type: string
+            length: 255
+        createdby:
+            type: string
+            length: 255
+            nullable: true
+        updatedby:
+            type: string
+            length: 255
+            nullable: true
+        datecreated:
+            type: datetime
+            nullable: true
+        dateupdated:
+            type: datetime
+            nullable: true
+    manyToOne:
+        task:
+            targetEntity: Task
+            cascade: {  }
+            mappedBy: null
+            inversedBy: comments
+            joinColumn:
+                name:  task_id
+                referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

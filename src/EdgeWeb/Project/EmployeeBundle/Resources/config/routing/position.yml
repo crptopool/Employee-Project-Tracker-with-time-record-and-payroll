@@ -1,0 +1,30 @@
+position:
+    path:     /
+    defaults: { _controller: "EmployeeBundle:Position:index" }
+
+position_show:
+    path:     /{id}/show
+    defaults: { _controller: "EmployeeBundle:Position:show" }
+
+position_new:
+    path:     /new
+    defaults: { _controller: "EmployeeBundle:Position:new" }
+
+position_create:
+    path:     /create
+    defaults: { _controller: "EmployeeBundle:Position:create" }
+    methods:  POST
+
+position_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "EmployeeBundle:Position:edit" }
+
+position_update:
+    path:     /{id}/update
+    defaults: { _controller: "EmployeeBundle:Position:update" }
+    methods:  [POST, PUT]
+
+position_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "EmployeeBundle:Position:delete" }
+    methods:  [POST, DELETE]

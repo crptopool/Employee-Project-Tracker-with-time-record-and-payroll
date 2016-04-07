@@ -1,0 +1,46 @@
+EdgeWeb\Project\EmployeeBundle\Entity\Position:
+    type: entity
+    table: position
+    repositoryClass: EdgeWeb\Project\EmployeeBundle\Repository\PositionRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        description:
+            type: string
+            length: 255
+        createdby:
+            type: string
+            length: 255
+            nullable: true
+        updatedby:
+            type: string
+            length: 255
+            nullable: true
+        datecreated:
+            type: datetime
+            nullable: true
+        dateupdated:
+            type: datetime
+            nullable: true
+    manyToOne:
+        department:
+            targetEntity: Department
+            cascade: {  }
+            mappedBy: null
+            inversedBy: positions
+            joinColumn:
+                name:  department_id
+                referencedColumnName: id
+            orphanRemoval: false
+    oneToMany:
+        users:
+            targetEntity: EdgeWeb\Project\UserBundle\Entity\User
+            mappedBy: position
+    lifecycleCallbacks: {  }

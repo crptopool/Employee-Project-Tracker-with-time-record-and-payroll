@@ -1,0 +1,101 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+    <h3>Project</h3>
+<a href="{{ path('task_new') }}" class="btn btn-lg btn-default"><i class="fa fa-plus"></i>Add New Task</a>
+    <table class="table table-hover table-striped">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>ETA</th>
+                <th>Datestarted</th>
+                <th>Datefinished</th>
+                <th>Status</th>
+                <th>Createdby</th>
+                <th>Updatedby</th>
+                <th>Datecreated</th>
+                <th>Dateupdated</th>
+                <th>Actions</th>
+            </tr>
+            <tr>
+                <td>{{ entity.id }}</td>
+                <td>{{ entity.name }}</td>
+                <td>{{ entity.description }}</td>
+                <td>
+                    {% if entity.eta %}
+                        {{ entity.eta|date('Y-m-d') }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if entity.datestarted %}
+                        {{ entity.datestarted|date('Y-m-d H:i:s') }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if entity.datefinished %}
+                        {{ entity.datefinished|date('Y-m-d H:i:s') }}
+                    {% endif %}
+                </td>
+                <td>{{ entity.status }}</td>
+                <td>{{ entity.createdby }}</td>
+                <td>{{ entity.updatedby }}</td>
+                <td>
+                    {% if entity.datecreated %}
+                        {{ entity.datecreated|date('Y-m-d') }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if entity.dateupdated %}
+                        {{ entity.dateupdated|date('Y-m-d H:i:s') }}
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="item-actions">
+                        <a href="{{ path('project') }}"><i class="fa fa-arrow-left"></i>Back</a>
+                        <a href="{{ path('project_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i>Edit</a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+       
+    {#{ form(delete_form) }#}
+    <h3>Tasks For This Project</h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Task Name</th>
+                <th>Description</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Total Hours</th>
+                <th>User</th>
+                <th>Date Created</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in entity.tasks %}
+            <tr>
+                <td>{{ task.name}}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.start|date('H:i:s A') }}</td>
+                <td>{{ task.end|date('H:i:s A') }}</td>
+                <td>{{ task.getWorkedHours() }}</td>
+                <td>{{ task.getCreatedby() }}</td>
+                <td>{{ task.getDatecreated()|date('Y-m-d H:i:s A') }}</td>
+                <td>
+                    <div class="item-actions">
+                      
+                        <a href="{{ path('task_show', { 'id': task.id }) }}"><i class="fa fa-eye"></i>Show</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

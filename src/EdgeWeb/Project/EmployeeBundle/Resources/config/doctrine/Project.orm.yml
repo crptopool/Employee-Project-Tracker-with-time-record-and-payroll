@@ -1,0 +1,68 @@
+EdgeWeb\Project\EmployeeBundle\Entity\Project:
+    type: entity
+    table: project
+    repositoryClass: EdgeWeb\Project\EmployeeBundle\Repository\ProjectRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        description:
+            type: string
+            length: 255
+        eta:
+            type: date
+            nullable: true
+        datestarted:
+            type: date
+            nullable: true
+        datefinished:
+            type: date
+            nullable: true
+        status:
+            type: string
+            length: 255
+            default: 'Not Set Status'
+            nullable: true
+        createdby:
+            type: string
+            length: 255
+            nullable: true
+        updatedby:
+            type: string
+            length: 255
+            nullable: true
+        datecreated:
+            type: datetime
+            nullable: true
+        dateupdated:
+            type: datetime
+            nullable: true
+        path:
+            type: string
+            nullable: true
+    oneToMany:
+        tasks:
+            targetEntity: Task
+            mappedBy: project
+        #users:
+            #targetEntity: EdgeWeb\Project\UserBundle\Entity\User
+            #mappedBy: project
+    manyToMany:
+        users:
+            targetEntity: EdgeWeb\Project\UserBundle\Entity\User
+            joinTable:
+                name: users_projects
+            joinColumns:
+                project_id:
+                referencedColumnName: id
+            inverseJoinColumns:
+                user_id:
+                referencedColumnName: id
+            unique: true
+    lifecycleCallbacks: {  }

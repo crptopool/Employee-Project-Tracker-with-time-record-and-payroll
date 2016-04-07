@@ -1,0 +1,50 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Reason</h1>
+    <div class="table-responsive">
+        <table class="table table-condensed table-hover">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ entity.id }}</td>
+                </tr>
+                <tr>
+                    <th>Reason</th>
+                    <td>{{ entity.reason }}</td>
+                </tr>
+                <tr>
+                    <th>Createdby</th>
+                    <td>{{ entity.createdby }}</td>
+                </tr>
+                <tr>
+                    <th>Updatedby</th>
+                    <td>{{ entity.updatedby }}</td>
+                </tr>
+                <tr>
+                    <th>Datecreated</th>
+                    <td>{{ entity.datecreated|date('Y-m-d H:i:s') }}</td>
+                </tr>
+                <tr>
+                    <th>Dateupdated</th>
+                    <td>{{ entity.dateupdated|date('Y-m-d H:i:s') }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <ul class="record_actions">
+            <li>
+                <a href="{{ path('reason') }}">
+                    Back to the list
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('reason_edit', { 'id': entity.id }) }}">
+                    Edit
+                </a>
+            </li>
+            <li>{{ form(delete_form) }}</li>
+        </ul>
+    </div>
+    
+{% endblock %}

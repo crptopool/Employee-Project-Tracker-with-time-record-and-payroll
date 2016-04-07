@@ -1,0 +1,85 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+    {% if app.user and is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('project_new') }}" class="btn btn-lg btn-default"><i class="fa fa-plus"></i>Add New Project</a>
+    {% endif %}
+    <h3>Total Projects: {{ entities.getTotalItemCount | number_format }} as of {{ 'now' | date('F d, Y h:i A') }}</h3>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th><i class="fa fa-folder"></i>Project Name</th>
+                <th><i class="fa fa-user"></i>Assigned To</th>
+                <th><i class="fa fa-calendar"></i> ETA</th>
+                <th>Status</th>
+                <th>Total Hours</th>
+                <th><i class="fa fa-user"></i> Created By</th>
+                <th>Updated by</th>
+                <th><i class="fa fa-calendar"></i>Date created</th>
+                <th><i class="fa fa-cogs"></i> Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if entities|length > 0 %}
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.name}}</td>
+                <td>
+                    {% for user in entity.users %}
+                        {{ user.username }}
+                            {% if not loop.last %},{% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% if entity.eta %}
+                        {{ entity.eta|date('Y-m-d') }}
+                    {% endif %}
+                </td>
+                <!--td>
+                    {#% if entity.eta|date('Y-m-d') > 'now'|date('Y-m-d') %}
+                        <i class="fa fa-users"></i>deadline
+                    {% else %}
+                        Ongoing
+                    {% endif %#}
+                </td-->
+                <td>{{ entity.getStatus() }}</td>
+                <td>{{ entity.getTotalHours() }}</td>
+                <td>{{ entity.getCreatedBy() }}</td>
+                <td>{{ entity.getUpdatedby() }}</td>
+                <td>{% if entity.datecreated %}{{ entity.datecreated|date('Y-m-d h:i a')}}{% endif %}</td>
+                <td>
+                    <div class="item-actions">
+                       <a href="{{ path('project_show', { 'id': entity.id }) }}" class="btn btn-sm btn-danger"><i class="fa fa-eye"></i>Tasks</a>
+                        {% if app.user and is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('project_edit', { id: entity.id }) }}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>Update</a>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        {% else %}
+            <h3 class="alert alert-warning">No Project Created</h3>
+        {% endif %}
+        </tbody>
+    </table>
+    <hr/>
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(entities) }}
+    </div>
+{% endblock %}
+
+{#% block sidebar %}
+    <div class="section actions">
+        <a href="#" class="btn btn-lg btn-block btn-success">
+            <i class="fa fa-plus"></i> {{ 'action.create_post'|trans }}
+        </a>
+    </div>
+
+    {{ parent() }#}
+
+    {#{ show_source_code(_self) }#}
+{#% endblock %#}

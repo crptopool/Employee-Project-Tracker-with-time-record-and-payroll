@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'error' %}
+
+{% block main %}
+    <h1 class="text-danger">Error 500</h1>
+
+    <p class="lead">
+        There was an internal server error.
+    </p>
+    <p>
+        Try loading this page again in some minutes or
+        <a href="{{ path('project') }}">go back to the homepage</a>.
+    </p>
+{% endblock %}
+

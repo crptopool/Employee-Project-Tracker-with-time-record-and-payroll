@@ -1,0 +1,34 @@
+project:
+    path:     /
+    defaults: { _controller: "EmployeeBundle:Project:index" }
+
+project_show:
+    path:     /{id}/show
+    defaults: { _controller: "EmployeeBundle:Project:show" }
+
+project_new:
+    path:     /new
+    defaults: { _controller: "EmployeeBundle:Project:new" }
+
+project_create:
+    path:     /create
+    defaults: { _controller: "EmployeeBundle:Project:create" }
+    methods:  POST
+
+project_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "EmployeeBundle:Project:edit" }
+
+project_update:
+    path:     /{id}/update
+    defaults: { _controller: "EmployeeBundle:Project:update" }
+    methods:  [POST, PUT]
+
+project_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "EmployeeBundle:Project:delete" }
+    methods:  [POST, DELETE]
+
+project_show_individual:
+    path:   /your-individual-projects
+    defaults: { _controller: "EmployeeBundle:Project:showIndividualProjects" }

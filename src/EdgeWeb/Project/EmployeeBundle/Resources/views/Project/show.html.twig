@@ -1,0 +1,158 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+    <h2>Project Name: {{ project.name}}</h2>
+    <table class="table table-hover">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>ETA</th>
+                <th>Start</th>
+                <th>Finished</th>
+                <th>Status</th>
+                <th>Created by</th>
+                <th>Updated by</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Actions</th>
+            </tr>
+            <tr>
+                <td>{{ project.id }}</td>
+                <td>{{ project.name }}</td>
+                <td>{{ project.description }}</td>
+                <td>
+                    {% if project.eta %}
+                        {{ project.eta|date('Y-m-d') }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if project.datestarted %}
+                        {{ project.datestarted|date('Y-m-d H:i:s') }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if project.datefinished %}
+                        {{ project.datefinished|date('Y-m-d H:i:s') }}
+                    {% endif %}
+                </td>
+                <td>{{ project.getStatus() }}</td>
+                <td>{{ project.getCreatedby() }}</td>
+                <td>{{ project.getUpdatedby }}</td>
+                <td>
+                    {% if project.datecreated %}
+                        {{ project.datecreated|date('Y-m-d') }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if project.dateupdated %}
+                        {{ project.dateupdated|date('Y-m-d H:i:s') }}
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="item-actions">
+                        <a href="{{ path('project') }}"><i class="fa fa-arrow-left"></i>Back</a>
+                        <!--a href="{#{ path('project_edit', { 'id': project.id }) }#}"><i class="fa fa-edit"></i>Edit</a-->
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+     {#{ form(delete_form) }#}
+    {% if tasks|length > 0 %}
+    <h5>Tasks For This Project</h5>
+    <small>Total Tasks For this Project: <strong>{{ tasks.getTotalItemCount | number_format }}</strong> as of {{ 'now' | date('F d, Y h:i A') }}</small>
+    
+    <table class="table table-hover" id="myTable">
+        <thead>
+            <tr>
+                <th>Task Name</th>
+                <th>Project Name</th>
+                <th>Description</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Total Hours</th>
+                <th>Developer</th>
+                <th>Created</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {#% for task in project.tasks %#}
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.name}}</td>
+                <td>{{ task.project }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.start|date('H:i:s A') }}</td>
+                <td>{{ task.end|date('H:i:s A') }}</td>
+                <td class="hours">{{ task.getWorkedHours() }}</td>
+                <td>{{ task.getCreatedby() }}</td>
+                <td>{{ task.getDatecreated()|date('Y-m-d H:i:s A') }}</td>
+                <td>
+                    <div class="item-actions">
+                      
+                        <a href="{{ path('task_show', { 'id': task.id }) }}"><i class="fa fa-eye"></i>Show Comments</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th><button id="addTimes" class="btn btn-sm btn-default"><i class="fa fa-plus"></i>Calculate</button></th>
+                <th><span id="timesum"></span></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </tfoot>
+    </table> 
+    {% else %}
+    <h3>No task created for this project</h3>
+    {% endif %}
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(tasks) }}
+    </div>
+       <!-- check if project is already finished..-->
+    {% if project.getStatus() == 'Finished' or project.getStatus() == 'Pending' or project.getStatus() is null or project.getStatus() == 'Not Set Status' %}
+        <p class="alert alert-info">You cant add task for a {{ project.getStatus() }} project..Contact your admin</p>
+    {% else %}
+      <button class="btn btn-sm btn-default" onclick="$('#target').toggle();"><i class="fa fa-plus"></i>Add Task</button>
+        {{ render(controller('EmployeeBundle:Task:new',{ 'project_id': project.id })) }}
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    <!-- get all task hours //-->
+    {{ parent() }}
+    <script>
+        Number.prototype.padDigit = function() {
+          return (this < 10) ? '0' + this : this;
+        }
+
+        $("#addTimes").on('click', function() {
+          var t1 = "00:00:00";
+          var mins = 0;
+          var hrs = 0;
+          $('.hours').each(function() {
+            t1 = t1.split(':');
+            var t2 = $(this).text().split(':');
+            mins = Number(t1[1]) + Number(t2[1]);
+            minhrs = Math.floor(parseInt(mins / 60));
+            hrs = Number(t1[0]) + Number(t2[0]) + minhrs;
+            mins = mins % 60;
+            t1 = hrs.padDigit() + ':' + mins.padDigit()
+          console.log(t1);
+          });
+          $('#timesum').text(t1);
+        });
+    </script>
+{% endblock %} 

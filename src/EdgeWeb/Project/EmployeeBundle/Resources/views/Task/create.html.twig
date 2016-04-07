@@ -1,0 +1,14 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+
+{% block title %}Add Task{% endblock%}
+
+{% block body %}
+    <h1>Add task for project "{{ task.project.name }}"</h1>
+
+    {% include 'EmployeeBundle:Task:form.html.twig' with { 'form': form } %}
+    
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'error' %}
+
+{% block main %}
+    <h1 class="text-danger">Error</h1>
+
+    <p class="lead">
+        There was an unknown error (HTTP {{ status_code }})
+        that prevented to complete your request.
+    </p>
+    <p>
+        Try loading this page again in some minutes or
+        <a href="{{ path('project') }}">go back to the homepage</a>.
+    </p>
+{% endblock %}
+

@@ -1,0 +1,58 @@
+EdgeWeb\Project\EmployeeBundle\Entity\Timerecord:
+    type: entity
+    table: timerecord
+    repositoryClass: EdgeWeb\Project\EmployeeBundle\Repository\TimerecordRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        workingday:
+            type: date
+        timein:
+            type: time
+        timeout:
+            type: time
+            nullable: true
+        createdby:
+            type: string
+            length: 255
+            nullable: true
+        updatedby:
+            type: string
+            length: 255
+            nullable: true
+        datecreated:
+            type: datetime
+            nullable: true
+        dateupdated:
+            type: datetime
+            nullable: true
+        totalhour:
+            type: integer
+            nullable: true
+        overtime:
+            type: integer
+            nullable: true
+    manyToOne:
+        #permissions:
+            #targetEntity: Permission
+            #cascade: {  }
+            #mappedBy: null
+            #inversedBy: timerecords
+            #joinColumn:
+                #name:  permission_id
+                #referencedColumnName: id
+            #orphanRemoval: false
+        users:
+            targetEntity: EdgeWeb\Project\UserBundle\Entity\User
+            cascade: { }
+            mappedBy: null
+            inversedBy: timerecords
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

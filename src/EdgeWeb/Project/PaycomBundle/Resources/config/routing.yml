@@ -1,0 +1,11 @@
+paycom_rate:
+    resource: "@PaycomBundle/Resources/config/routing/rate.yml"
+    prefix:   /rate
+
+paycom_payroll:
+    resource: "@PaycomBundle/Resources/config/routing/payroll.yml"
+    prefix:   /payroll
+
+paycom_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: PaycomBundle:Default:index }

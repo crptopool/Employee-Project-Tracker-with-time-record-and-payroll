@@ -1,0 +1,17 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+    <h1>Rate creation</h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('rate') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

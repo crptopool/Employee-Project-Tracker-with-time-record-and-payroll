@@ -1,0 +1,47 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+
+    <h3>Tasks list</h3>
+
+    <a href="{{ path('task_new') }}" class="btn btn-lg btn-default"><i class="fa fa-plus"></i>Add New Task</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Project</th>
+                <th>Task Name</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Hours Work</th>
+                <th>User</th>
+                <th>Updatedby</th>
+                <th>Datecreated</th>
+                <th>Dateupdated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.getProject() }}</td>
+                <td>{{ entity.name }}</td>
+                <td>{% if entity.start %}{{ entity.start|date('H:i:s') }}{% endif %}</td>
+                <td>{% if entity.end %}{{ entity.end|date('H:i:s')}}{% endif %}</td>
+                <td>{{ entity.getWorkedHours() }}</td>
+                <td>{{ entity.createdby }}</td>
+                <td>{{ entity.updatedby }}</td>
+                <td>{% if entity.datecreated %}{{ entity.datecreated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.dateupdated %}{{ entity.dateupdated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <div class="class-items">
+                        <a href="{{ path('task_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('task_edit', { 'id': entity.id }) }}">edit</a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

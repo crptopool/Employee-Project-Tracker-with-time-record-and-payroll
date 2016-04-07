@@ -1,0 +1,12 @@
+all_user:
+    path:     /allUser
+    defaults: { _controller: UserBundle:User:allUser }
+
+users_transactions:
+    path:   /users-transactions
+    defaults: { _controller: UserBundle:User:showTransactions }
+
+users_task_show:
+    path:     /user-transactions/{id}
+    defaults: { _controller: "UserBundle:User:showTransactions" }
+ 

@@ -1,0 +1,62 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_new' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<style>
+		.click_timein {
+			border-radius: 100%;
+			margin-bottom: 300px;
+		}
+		.follow_steps {
+			margin-top: -350px;
+		}
+	</style>
+{% endblock %}
+{% block main %}
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th><i class="fa fa-user"></i>employee</th>
+				<th><i class="fa fa-calendar"></i>in</th>
+				<th><i class="fa fa-calendar"></i>out</th>
+				<th>hours</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for entity in alreadytimedinuser %}
+			<tr>
+				<td>{{ entity.getUsers() }}</td>
+				<td>{% if entity.timein %}{{ entity.timein|date('H:i:s') }}{% endif %}</td>
+				<td>
+                    {% if entity.timeout is empty %}
+                        currently working
+                    {% else %}
+                        {% if entity.timeout %}{{ entity.timeout|date('H:i:s') }}{% endif %}
+                    {% endif %}
+                </td>
+				<td>{{ entity.getWorkedHours }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{{ form_start(form, {attr: {novalidate: 'novalidate'}} ) }}
+	    {{ form(form) }}
+	{{ form_end(form)}}
+	<hr />
+	{% if app.user and is_granted('ROLE_ADMIN') %}
+		<div class="follow_steps">
+			<p>Hi Super Admin, </p>
+			<p>Please follow these Steps</p>
+			<ul>
+				<li>Add Department.In Admin Area dropdown, click Department.Add Department</li>
+				<li>Add Position.</li>
+				<li>Add New User.Select ROLE_USER for regular users in roles field</li>
+				<li>Start Adding Projects!</li>
+				<li>Only users with super_admin rights can access Payroll Module</li>
+			</ul>
+			<a href="{{ path('easyadmin')}}" class="btn btn-success"> You can also access special backend super admin page here!</a>
+		</div>
+	{% endif %}
+{% endblock %}

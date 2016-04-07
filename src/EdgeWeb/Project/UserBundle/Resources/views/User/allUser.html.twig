@@ -1,0 +1,40 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+<h3>User</h3>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th><i class="fa fa-users"></i>Username</th>
+			<th><i class="fa fa-role"></i>Role</th>
+			<th>Status</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for user in allUser %}
+		<tr>
+			<td>{{ user.id }}</td>
+			<td>{{ user.username }}</td>
+			<td>{% for roles in user.getRoles %}{{ roles }}{% endfor %}</td>
+			<td>
+				{% if user.isEnabled() == 1 %} 
+					Active
+				{% else %}
+					Already Dead
+				{% endif %}
+			</td>
+			<td>
+				<div class="item-actions">
+                    <a href={#{ path('fos_user_profile_edit')}#}><i class="fa fa-edit"></i>Edit</a>  
+                   	  <a href="{{ path('users_task_show', { 'id': user.id }) }}" class="btn btn-sm btn-danger"><i class="fa fa-eye"></i>Tasks</a>
+                </div>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}

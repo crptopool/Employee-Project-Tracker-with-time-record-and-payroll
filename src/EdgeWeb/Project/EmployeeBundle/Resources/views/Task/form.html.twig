@@ -1,0 +1,6 @@
+<form action="{{ path('task_create', { 'project_id' : task.project.id } ) }}" novalidate method="post" {{ form_enctype(form) }} class="form-horizontal" id="target" style="display: none">
+    {{ form_widget(form) }}
+    <p>
+        <input type="submit" value="Submit" class="btn btn-default btn-success">
+    </p>
+</form>

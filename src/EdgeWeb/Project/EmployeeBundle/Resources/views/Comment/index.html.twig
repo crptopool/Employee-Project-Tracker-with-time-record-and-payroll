@@ -1,0 +1,49 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+    <h1>Comment list</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Project</th>
+                <th>Comment</th>
+                <th>Createdby</th>
+                <th>Updatedby</th>
+                <th>Datecreated</th>
+                <th>Dateupdated</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <!--td><a href="{#{ path('comment_show', { 'id': entity.id }) }}">{{ entity.id }#}</a></td-->
+                <td>{{ entity.getProject() }}</td>
+                <td>{{ entity.comment }}</td>
+                <td>{{ entity.createdby }}</td>
+                <td>{{ entity.updatedby }}</td>
+                <td>{% if entity.datecreated %}{{ entity.datecreated|date('Y-m-d H:i:s A') }}{% endif %}</td>
+                <td>{% if entity.dateupdated %}{{ entity.dateupdated|date('Y-m-d H:i:s A') }}{% endif %}</td>
+                <td>
+                    <div class="item-actions">
+                        <a href="{{ path('comment_show', { 'id': entity.id})}}" class="btn btn-sm btn-danger">Show</a>
+                        <a href="{{ path('comment_edit', { 'id': entity.id})}}" class="btn btn-sm btn-default">Edit</a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{#{ path('comment_new', { 'project_id': entity.getProject().getId() }) }#}">
+            <a href="{{ path('comment_new')}}">
+                Add Comment
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

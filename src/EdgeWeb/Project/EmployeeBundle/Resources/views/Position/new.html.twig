@@ -1,0 +1,12 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+    <h1>Add New Position</h1>
+
+    {{ form(form) }}
+
+    <a href="{{ path('position') }}"><i class="fa fa-arrow-left"></i>Back</a>
+		  
+{% endblock %}

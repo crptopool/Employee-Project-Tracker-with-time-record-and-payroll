@@ -1,0 +1,14 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+
+{% block title %}Add Comment{% endblock%}
+
+{% block body %}
+    <h1>Add Comment For  "{{ comment.task.name }}"</h1>
+
+    {% include 'EmployeeBundle:Comment:form.html.twig' with { 'form': form } %}
+    
+{% endblock %}

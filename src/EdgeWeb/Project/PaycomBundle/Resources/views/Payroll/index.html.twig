@@ -1,0 +1,67 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+    <h1>Payroll list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Hours</th>
+                <th>Days</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Datefrom</th>
+                <th>Dateto</th>
+                <th>Overtime</th>
+                <th>Createdby</th>
+                <th>Updatedby</th>
+                <th>Createddate</th>
+                <th>Updateddate</th>
+                <th>Status</th>
+                <th>Rate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('payroll_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.hours }}</td>
+                <td>{{ entity.days }}</td>
+                <td>{{ entity.amount }}</td>
+                <td>{% if entity.date %}{{ entity.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.dateFrom %}{{ entity.dateFrom|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.dateTo %}{{ entity.dateTo|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.overtime }}</td>
+                <td>{{ entity.createdBy }}</td>
+                <td>{{ entity.updatedBy }}</td>
+                <td>{% if entity.createdDate %}{{ entity.createdDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.updatedDate %}{{ entity.updatedDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.status }}</td>
+                <td>{{ entity.rate }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('payroll_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('payroll_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>S
+            <a href="{{ path('payroll_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

@@ -1,0 +1,49 @@
+<?php
+
+namespace EdgeWeb\Project\PaycomBundle\Entity;
+
+/**
+ * Rate
+ */
+class Rate
+{
+    /**
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @var float
+     */
+    private $monthlyRate;
+
+    /**
+     * @var float
+     */
+    private $hourlyRate;
+
+    /**
+     * @var string
+     */
+    private $createdBy;
+
+    /**
+     * @var string
+     */
+    private $updatedBy;
+
+    /**
+     * @var \DateTime
+     */
+    private $dateCreated;
+
+    /**
+     * @var \DateTime
+     */
+    private $dateUpdated;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $payrolls;    
+}

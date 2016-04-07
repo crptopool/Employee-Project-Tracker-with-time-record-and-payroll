@@ -1,0 +1,40 @@
+employee_upload:
+    resource: "@EmployeeBundle/Resources/config/routing/upload.yml"
+    prefix:   /upload
+
+employee_project:
+    resource: "@EmployeeBundle/Resources/config/routing/project.yml"
+    prefix:   /project
+
+employee_task:
+    resource: "@EmployeeBundle/Resources/config/routing/task.yml"
+    prefix:   /task
+
+employee_comment:
+    resource: "@EmployeeBundle/Resources/config/routing/comment.yml"
+    prefix:   /comment
+
+employee_permission:
+    resource: "@EmployeeBundle/Resources/config/routing/permission.yml"
+    prefix:   /permission
+
+
+employee_timerecord:
+    resource: "@EmployeeBundle/Resources/config/routing/timerecord.yml"
+    prefix:   /timerecord
+
+employee_position:
+    resource: "@EmployeeBundle/Resources/config/routing/position.yml"
+    prefix:   /position
+
+employee_department:
+    resource: "@EmployeeBundle/Resources/config/routing/department.yml"
+    prefix:   /department
+
+employee_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: EmployeeBundle:Default:index }
+
+index:
+    path:     /index
+    defaults: { _controller: EmployeeBundle:Employee:index }

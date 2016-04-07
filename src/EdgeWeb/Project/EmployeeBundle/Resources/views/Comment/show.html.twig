@@ -1,0 +1,40 @@
+{% extends 'users/layout.html.twig' %}
+
+{% block body_id 'admin_post_index' %}
+
+{% block main %}
+
+    <h3>{{ comment.createdby }} Commented </h3>
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ comment.id }}</td>
+            </tr>
+            <tr>
+                <th>Comment</th>
+                <td><textarea>{{ comment.comment }}</textarea></td>
+            </tr>
+            <tr>
+                <th>Createdby</th>
+                <td>{{ comment.createdby }}</td>
+            </tr>
+            <tr>
+                <th>Updatedby</th>
+                <td>{{ comment.updatedby }}</td>
+            </tr>
+            <tr>
+                <th>Datecreated</th>
+                <td>{%if comment.datecreated %}{{ comment.datecreated|date('F jS \\a\\t g:ia') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Dateupdated</th>
+                <td>{% if comment.dateupdated %}{{ comment.dateupdated|date('F jS \\a\\t g:ia') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+    <!--a href="{{ path('comment_edit', { 'id': comment.id }) }}"><i class="fa fa-edit"></i>Edit</a-->
+       
+    {#{ form(delete_form) }#}
+{% endblock %}
